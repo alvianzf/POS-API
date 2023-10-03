@@ -6,7 +6,6 @@ var jwt = require("jsonwebtoken");
 
 const privateKey = "secret";
 
-/* GET users listing. */
 router.post("/", async (req, res) => {
   const { username, password } = req.body;
 
