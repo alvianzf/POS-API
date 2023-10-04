@@ -13,7 +13,8 @@ router.use(
 );
 router.use("/transaction", require("./transaction"));
 router.use("/menu", require("./menu"));
-router.use("/login", require("./login"));
-router.use("/logout", require("./logout"));
+router.use("/auth", require("./auth"));
+
+router.use("/users", require("../api/getAll/users.js"));
 
 module.exports = router;

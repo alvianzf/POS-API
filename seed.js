@@ -15,14 +15,6 @@ const hashPassword = async (pass) => {
   }
 };
 
-// (async () => {
-//   console.log(await hashPassword("owner"));
-// })();
-
-// console.log(user);
-
-// console.log(hashPassword("manager"));
-
 const generateUsersToSeed = async () => {
   const usersToSeed = [
     {

@@ -1,6 +1,6 @@
 var express = require("express");
 var router = express.Router();
-var User = require("../../../schema/user-schema.js");
+var User = require("../../../../schema/user-schema.js");
 var bcrypt = require("bcrypt");
 var jwt = require("jsonwebtoken");
 
