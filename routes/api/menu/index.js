@@ -1,12 +1,13 @@
 var express = require("express");
 var router = express.Router();
+var Category = require("../../../schema/menu-schema.js");
 
 //get by id category
 router.get("/:id", async (req, res) => {
   const { id } = req.params;
 
   try {
-    const menu = await Menu.findOne(id);
+    const menu = await Category.findOne(id);
 
     res.status(200).json({
       message: "Success",
@@ -27,7 +28,7 @@ router.put("/:id", async (req, res) => {
   const newMenu = req.body;
 
   try {
-    const updatedMenu = await Menu.findByIdAndUpdate(id, newMenu);
+    const updatedMenu = await Category.findByIdAndUpdate(id, newMenu);
 
     res.status(200).json({
       message: "update success",
@@ -40,4 +41,24 @@ router.put("/:id", async (req, res) => {
     });
   }
 });
+
+//delete by id
+router.delete("/:id", async (req, res) => {
+  const { id } = req.params;
+
+  try {
+    const deletedMenu = await Category.findByIdAndDelete({ _id: id });
+
+    res.status(200).json({
+      message: "delete success",
+      data: deletedMenu,
+    });
+  } catch (error) {
+    res.status(400).json({
+      message: "id unavailable",
+      error: error,
+    });
+  }
+});
+
 module.exports = router;

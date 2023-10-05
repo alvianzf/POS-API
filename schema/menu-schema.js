@@ -1,5 +1,5 @@
 var mongoose = require("mongoose");
-var schema = mongoose.Schema;
+var Schema = mongoose.Schema;
 
 //define category schema
 const categorySchema = new Schema(
