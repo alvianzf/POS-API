@@ -1,23 +1,27 @@
 var mongoose = require("mongoose");
 var Schema = mongoose.Schema;
 
-//define category schema
-const categorySchema = new Schema(
+const menuSchema = new Schema(
   {
-    category_name: String,
+    category_id: {
+      type: mongoose.ObjectId,
+      ref: "Category",
+    },
+    name: String,
+    unit_price: Number,
+    discount: Number,
+    description: {
+      text: String,
+      image: String,
+    },
     is_active: {
       type: Boolean,
       default: true,
-    },
-    image: String,
-    created_by: {
-      type: mongoose.ObjectId,
-      ref: "User",
     },
   },
   { timestamps: true }
 );
 
-const Category = mongoose.model("Categories", categorySchema);
+const Menu = mongoose.model("Menus", menuSchema);
 
-module.exports = Category;
+module.exports = Menu;

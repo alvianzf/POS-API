@@ -1,6 +1,6 @@
 var express = require("express");
 var router = express.Router();
-var Category = require("../../../schema/menu-schema.js");
+var Category = require("../../../schema/category-schema.js");
 
 //get by id category
 router.get("/:id", async (req, res) => {
