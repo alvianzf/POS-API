@@ -1,13 +1,13 @@
 var express = require("express");
 var router = express.Router();
-var Menu = require("../../../schema/menu-schema.js");
+var Category = require("../../../schema/category-schema.js");
 
 //get by id category
 router.get("/:id", async (req, res) => {
   const { id } = req.params;
 
   try {
-    const menu = await Menu.findOne(id);
+    const menu = await Category.findOne(id);
 
     res.status(200).json({
       message: "Success",
@@ -28,7 +28,7 @@ router.put("/:id", async (req, res) => {
   const newMenu = req.body;
 
   try {
-    const updatedMenu = await Menu.findByIdAndUpdate(id, newMenu);
+    const updatedMenu = await Category.findByIdAndUpdate(id, newMenu);
 
     res.status(200).json({
       message: "update success",
@@ -47,7 +47,7 @@ router.delete("/:id", async (req, res) => {
   const { id } = req.params;
 
   try {
-    const deletedMenu = await Menu.findByIdAndDelete({ _id: id });
+    const deletedMenu = await Category.findByIdAndDelete({ _id: id });
 
     res.status(200).json({
       message: "delete success",

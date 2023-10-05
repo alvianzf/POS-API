@@ -1,15 +1,15 @@
 var express = require("express");
 var router = express.Router();
-var Menu = require("../../../schema/menu-schema.js");
+var Category = require("../../../schema/category-schema.js");
 
 //get all menus
 router.get("/", async (req, res) => {
   try {
-    const menus = await Menu.find({ is_active: true });
+    const categories = await Category.find({ is_active: true });
 
     res.status(200).json({
       message: "Retrieve User Successfull",
-      data: menus,
+      data: categories,
     });
   } catch (error) {
     res.status(500).json({
