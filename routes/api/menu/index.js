@@ -61,4 +61,29 @@ router.delete("/:id", async (req, res) => {
   }
 });
 
+//soft delete archieve
+router.delete("/archieve/:id", async (req, res) => {
+  const { id } = req.params;
+
+
+  try {
+    const archieveMenu = await Menu.findById(id)
+
+    let (isActive) = archieveMenu
+    isActive = !isActive
+
+    const updatedArchieveMenu = await Menu.findByIdAndUpdate(id,{isActive})
+
+    res.status(200).json({
+        message: "success",
+        data :updatedArchieveMenu ,
+    })
+
+  } catch({status, message}) {
+    res.status(status).json({
+        status, message
+    })
+  }
+});
+
 module.exports = router;
