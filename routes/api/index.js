@@ -1,4 +1,5 @@
 const router = require("express").Router();
+
 const passport = require("../../services/passport-jwt.js");
 
 router.get("/", function (req, res) {
@@ -6,6 +7,8 @@ router.get("/", function (req, res) {
 });
 
 // Route Groups
+router.use("/transaction", require("./transaction"));
+router.use("/category", require("./menu"));
 router.use(
   "/user",
   passport.authenticate("jwt", { session: false }),
