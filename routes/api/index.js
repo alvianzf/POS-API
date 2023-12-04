@@ -8,7 +8,7 @@ router.get("/", function (req, res) {
 
 // Route Groups
 router.use("/transaction", require("./transaction"));
-router.use("/category", require("./menu"));
+router.use("/category", require("./category"));
 router.use(
   "/user",
   passport.authenticate("jwt", { session: false }),
@@ -18,6 +18,12 @@ router.use("/transaction", require("./transaction"));
 router.use("/menu", require("./menu"));
 router.use("/auth", require("./auth"));
 
+//Route for getall
 router.use("/users", require("../api/getAll/users.js"));
+router.use("/categories", require("../api/getAll/categories.js"));
+router.use("/menus", require("../api/getAll/menus.js"));
+
+//Route for archieve
+router.use("/archieve", require("../api/archieve"));
 
 module.exports = router;

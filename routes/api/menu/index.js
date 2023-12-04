@@ -1,13 +1,13 @@
 var express = require("express");
 var router = express.Router();
-var Category = require("../../../schema/menu-schema.js");
+var Menu = require("../../../schema/menu-schema.js");
 
 //get by id category
 router.get("/:id", async (req, res) => {
   const { id } = req.params;
 
   try {
-    const menu = await Category.findOne(id);
+    const menu = await Menu.findOne(id);
 
     res.status(200).json({
       message: "Success",
@@ -22,43 +22,81 @@ router.get("/:id", async (req, res) => {
 });
 
 //update by id
-router.put("/:id", async (req, res) => {
-  const { id } = req.params;
+router.put(
+  "/:id",
+  passport.authenticate("jwt", { session: false }),
+  async (req, res) => {
+    const { id } = req.params;
 
-  const newMenu = req.body;
+    const newMenu = req.body;
 
-  try {
-    const updatedMenu = await Category.findByIdAndUpdate(id, newMenu);
+    try {
+      const updatedMenu = await Menu.findByIdAndUpdate(id, newMenu);
 
-    res.status(200).json({
-      message: "update success",
-      data: newMenu,
-    });
-  } catch (error) {
-    res.status(400).json({
-      message: "error updating",
-      error: error,
-    });
+      res.status(200).json({
+        message: "update success",
+        data: newMenu,
+      });
+    } catch (error) {
+      res.status(400).json({
+        message: "error updating",
+        error: error,
+      });
+    }
   }
-});
+);
 
 //delete by id
-router.delete("/:id", async (req, res) => {
-  const { id } = req.params;
+router.delete(
+  "/:id",
+  passport.authenticate("jwt", { session: false }),
+  async (req, res) => {
+    const { id } = req.params;
 
-  try {
-    const deletedMenu = await Category.findByIdAndDelete({ _id: id });
+    try {
+      const deletedMenu = await Menu.findByIdAndDelete({ _id: id });
 
-    res.status(200).json({
-      message: "delete success",
-      data: deletedMenu,
-    });
-  } catch (error) {
-    res.status(400).json({
-      message: "id unavailable",
-      error: error,
-    });
+      res.status(200).json({
+        message: "delete success",
+        data: deletedMenu,
+      });
+    } catch (error) {
+      res.status(400).json({
+        message: "id unavailable",
+        error: error,
+      });
+    }
   }
-});
+);
+
+//soft delete archieve
+router.delete(
+  "/archieve/:id",
+  passport.authenticate("jwt", { session: false }),
+  async (req, res) => {
+    const { id } = req.params;
+
+    try {
+      const archieveMenu = await Menu.findById(id);
+
+      let isActive = archieveMenu;
+      isActive = !isActive;
+
+      const updatedArchieveMenu = await Menu.findByIdAndUpdate(id, {
+        isActive,
+      });
+
+      res.status(200).json({
+        message: "success",
+        data: updatedArchieveMenu,
+      });
+    } catch ({ status, message }) {
+      res.status(status).json({
+        status,
+        message,
+      });
+    }
+  }
+);
 
 module.exports = router;
